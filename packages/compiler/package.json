@@ -1,0 +1,22 @@
+{
+  "name": "compiler",
+  "module": "./src/index.ts",
+  "devDependencies": {
+    "@types/bun": "1.1.9",
+    "antlr4ng-cli": "^2.0.0",
+    "vitest": "^2.0.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "generate": "antlr4ng -Dlanguage=TypeScript -o ./src/generated/ -visitor -no-listener -Xexact-output-dir Grammar.g4",
+    "compile": "bun run ./src/index.ts",
+    "test": "vitest"
+  },
+  "type": "module",
+  "dependencies": {
+    "antlr4ng": "^3.0.4",
+    "prettier": "^3.3.3"
+  }
+}

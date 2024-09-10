@@ -1,0 +1,38 @@
+let a, b, c, d : text;
+let x : number;
+
+write("Hello World");
+a = read("enter a string");
+x = read("enter a number");
+write(a);
+b = 2 + 3.14 - 5 * 8.56 / 100;
+write("result: ");
+write(b);
+
+if b > 5 ?
+   write("> 5"); 
+ : write("< 5");
+;
+
+c = 0;
+d = x + 5 + x;
+write("Start of while loop");
+
+while c < d do
+    write("c: ");
+    write(c);
+    c = c + 1;
+;
+
+write("End of while loop");
+
+do
+    write("In do-while loop");
+    c = read("Enter a number less than 5: ");
+while c >= 5;
+
+write("End of do-while loop");
+
+// should error
+// let e : text;
+// write(e);
