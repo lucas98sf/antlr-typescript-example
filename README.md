@@ -1,15 +1,21 @@
-# compiler-monorepo
+# Compiler to TypeScript using ANTLR
 
-To install dependencies:
+## To install dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+## To run tests:
 
 ```bash
-bun run index.ts
+bun test
 ```
 
-This project was created using `bun init` in bun v1.1.18. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## To run the compiler
+
+```bash
+bun start
+```
+
+Opens the compiler at http://localhost:5173/

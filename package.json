@@ -6,8 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun --filter=editor dev",
+    "start": "bun --filter=editor dev",
     "compile": "bun --filter=compiler compile",
-    "generate": "bun --filter=compiler generate"
+    "generate": "bun --filter=compiler generate",
+    "test": "bun --filter=compiler test"
   }
 }
