@@ -12,7 +12,7 @@ describe("Compiler Tests", () => {
       write(a + b + x);
     `;
     const output = compile(input);
-    expect(output).toContain("let a, b: text;");
+    expect(output).toContain("let a, b: string;");
     expect(output).toContain("let x: number;");
     expect(output).toContain("console.log(a + b + x);");
   });

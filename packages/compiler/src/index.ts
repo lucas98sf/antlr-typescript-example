@@ -71,7 +71,7 @@ class Visitor extends GrammarVisitor<string> {
 
     const identifiersText = identifiers.map((id) => id.getText()).join(", ");
     const typesText = types.map((t) => t.getText()).join(", ");
-    return `let ${identifiersText}: ${typesText};`;
+    return `let ${identifiersText}: ${typesText === "text" ? "string" : "number"};`;
   };
 
   visitAssignmentStatement = (ctx: AssignmentStatementContext): string => {
