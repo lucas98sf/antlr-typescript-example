@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { evaluate } from "mathjs";
 import { GrammarLexer } from "./generated/GrammarLexer";
 import {
   GrammarParser,
@@ -16,6 +17,27 @@ import {
 import { CharStream, CommonTokenStream } from "antlr4ng";
 import { GrammarVisitor } from "./generated/GrammarVisitor";
 import { format } from "prettier";
+
+function roundToPrecision(num: number): string {
+  const factor = Math.pow(10, 4);
+  const rounded = Math.round(num * factor) / factor;
+
+  return rounded.toFixed(4).replace(/\.?0+$/, "");
+}
+
+function evaluateExpression(expression: string): string {
+  try {
+    // Evaluate the expression using mathjs
+    const result = evaluate(expression);
+
+    // Convert the result to a string
+    return roundToPrecision(result.toString());
+  } catch (error: any) {
+    throw new Error(
+      `Error evaluating expression '${expression}': ${error.message}`
+    );
+  }
+}
 
 class Visitor extends GrammarVisitor<string> {
   private declaredVariables: Set<string> = new Set();
@@ -85,7 +107,23 @@ class Visitor extends GrammarVisitor<string> {
     this.collectVariablesFromExpression(ctx.expression());
 
     this.usedVariables.add(variable);
-    return `${variable} = ${ctx.expression().accept(this)};`;
+
+    const isConstant = ctx
+      .expression()
+      .getText()
+      .match(/^\s*[()\d+*/\-\.\s]*\s*$/);
+
+    if (isConstant) {
+      return `${variable} = ${evaluateExpression(ctx.expression().getText())};`;
+    } else {
+      try {
+        return `${variable} = ${ctx.expression().accept(this)};`;
+      } catch (error: any) {
+        throw new Error(
+          `Error evaluating expression '${ctx.expression().getText()}': ${error.message}`
+        );
+      }
+    }
   };
 
   visitReadStatement = (ctx: ReadStatementContext): string => {

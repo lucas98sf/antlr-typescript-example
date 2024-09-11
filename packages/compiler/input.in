@@ -1,13 +1,15 @@
 new a : text;
-new b : number;
+new b, c, d : number;
 write("Hello World");
 
 a = read("enter a string");
 write(a);
 
-b = 2 + 3.14 - 5 * 8.56 / 100;
-write(b);
-is b > 5 ?
+b = (2 + 3.14) - 5 * 10 + 1 / 100;
+c = 8.56 + 1.44;
+d = c - 5;
+write(d);
+is d > 5 ?
    write("> 5"); 
  : write("< 5");
 ;

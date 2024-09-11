@@ -61,7 +61,7 @@ describe("Compiler Tests", () => {
       write(result);
     `;
     const output = compile(input);
-    expect(output).toContain("result = 2 + 3.14 - 5 * 8.56 / 100;");
+    expect(output).toContain("result = 4.712;");
   });
 
   it("should handle assignments correctly", () => {
@@ -126,6 +126,75 @@ describe("Compiler Tests", () => {
     `;
     expect(() => compile(input)).toThrowError(
       /Variables used but not assigned a value: a/
+    );
+  });
+
+  it("should handle multiple operations", () => {
+    const input = `
+      new a : text;
+      new b, c, d : number;
+      write("Hello World");
+
+      a = read("enter a string");
+      write(a);
+
+      b = (2 + 3.14) - 5 * 10 + 1 / 100;
+      c = 8.56 + 1.44;
+      d = c - 5;
+      write(d);
+      is d > 5 ?
+        write("> 5"); 
+      : write("< 5");
+      ;
+
+      new x, y, z : number;
+      x = read("enter a number");
+      y = x + 5 + x;
+      ... x < y >
+          write("x: ");
+          write(x);
+          x = x + 1;
+      ;
+
+      >
+          write("In do-while loop");
+          z = read("Enter a number less than 5: ");
+      ... z >= 5;
+
+      // should error
+      // let e : text;
+      // write(e);
+    `;
+    const output = compile(input);
+    expect(output?.replaceAll(/\s+/g, "")).toBe(
+      `
+      let a: string;
+      let b, c, d: number;
+      console.log("Hello World");
+      a = prompt("[TEXT] enter a string") ?? "";
+      console.log(a);
+      b = -44.85;
+      c = 10;
+      d = c - 5;
+      console.log(d);
+      if (d > 5) {
+        console.log("> 5");
+      } else {
+        console.log("< 5");
+      }
+      let x, y, z: number;
+      x = parseFloat(prompt("[NUMBER] enter a number") ?? "");
+      y = x + 5 + x;
+      while (x < y) {
+        console.log("x: ");
+        console.log(x);
+      x = x + 1;
+      }
+      do {
+        console.log("In do-while loop");
+        z = parseFloat(prompt("[NUMBER] Enter a number less than 5: ") ?? "");
+      } while (z >= 5);
+    `.replaceAll(/\s+/g, "")
     );
   });
 });
