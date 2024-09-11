@@ -1,4 +1,4 @@
-let a, b : text;
+new a, b : text;
 write("Hello World");
 a = read("enter a string");
 
@@ -7,23 +7,24 @@ b = 2 + 3.14 - 5 * 8.56 / 100;
 write("result: ");
 write(b);
 
-if b > 5 ?
+is b > 5 ?
    write("> 5"); 
  : write("< 5");
 ;
 
-let x, y, z : number;
+new x, y, z : number;
 x = read("enter a number");
 y = x + 5 + x;
-while x < y do
+... x < y >
     write("x: ");
     write(x);
     x = x + 1;
 ;
-do
+
+>
     write("In do-while loop");
     z = read("Enter a number less than 5: ");
-while z >= 5;
+... z >= 5;
 
 // should error
 // let e : text;

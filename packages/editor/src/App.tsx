@@ -39,7 +39,12 @@ function App() {
         <textarea
           value={code}
           onChange={handleCodeChange}
-          style={{ width: "500px", height: "300px" }}
+          style={{
+            width: "450px",
+            height: "300px",
+            marginTop: "13px",
+            marginBottom: "13px",
+          }}
         />
         <SyntaxHighlighter language="typescript" style={darcula}>
           {compiledCode}

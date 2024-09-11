@@ -12,16 +12,16 @@ statement:
 	| doWhileStatement;
 
 letStatement:
-	'let' IDENTIFIER (',' IDENTIFIER)* ':' type (
+	'new' IDENTIFIER (',' IDENTIFIER)* ':' type (
 		',' IDENTIFIER ':' type
 	)* ';';
 writeStatement: 'write' '(' expression ')' ';';
 readStatement: IDENTIFIER '=' 'read' '(' STRING ')' ';';
 assignmentStatement: IDENTIFIER '=' expression ';';
 ifStatement:
-	'if' expression '?' statement+ (':' statement+)? ';';
-whileStatement: 'while' expression 'do' statement+ ';';
-doWhileStatement: 'do' statement+ 'while' expression ';';
+	'is' expression '?' statement+ (':' statement+)? ';';
+whileStatement: '...' expression '>' statement+ ';';
+doWhileStatement: '>' statement+ '...' expression ';';
 
 expression:
 	expression ('+' | '-' | '*' | '/') expression

@@ -2,10 +2,10 @@ import { describe, it, expect } from "vitest";
 import { compile } from ".";
 
 describe("Compiler Tests", () => {
-  it("should handle variables with different types", () => {
+  it("should handle variables with disferent types", () => {
     const input = `
-      let a, b : text;
-      let x : number;
+      new a, b : text;
+      new x : number;
       a = read("enter a string");
       b = " ";
       x = read("enter a number");
@@ -19,9 +19,9 @@ describe("Compiler Tests", () => {
 
   it("should handle If...else structure", () => {
     const input = `
-      let a : number;
+      new a : number;
       a = 10;
-      if a > 5 ?
+      is a > 5 ?
         write("Greater than 5");
       : write("5 or less");
       ;
@@ -35,17 +35,17 @@ describe("Compiler Tests", () => {
 
   it("should handle while/do-while control structures", () => {
     const input = `
-      let count : number;
+      new count : number;
       count = 0;
-      while count < 5 do
+      ... count < 5 >
         write(count);
         count = count + 1;
       ;
       
-      do
+      >
         write("Looping");
         count = read("Enter a number: ");
-      while count >= 5;
+      ... count >= 5;
     `;
     const output = compile(input);
     expect(output).toContain("while (count < 5) {");
@@ -56,7 +56,7 @@ describe("Compiler Tests", () => {
 
   it("should perform arithmetic operations correctly", () => {
     const input = `
-      let result : number;
+      new result : number;
       result = 2 + 3.14 - 5 * 8.56 / 100;
       write(result);
     `;
@@ -66,7 +66,7 @@ describe("Compiler Tests", () => {
 
   it("should handle assignments correctly", () => {
     const input = `
-      let a : number;
+      new a : number;
       a = 42;
       write(a);
     `;
@@ -76,7 +76,7 @@ describe("Compiler Tests", () => {
 
   it("should handle input and output operations", () => {
     const input = `
-      let name : text;
+      new name : text;
       name = read("Enter your name: ");
       write("Hello, " + name);
     `;
@@ -87,7 +87,7 @@ describe("Compiler Tests", () => {
 
   it("should accept decimal numbers", () => {
     const input = `
-      let value : number;
+      new value : number;
       value = 3.14;
       write(value);
     `;
@@ -95,9 +95,9 @@ describe("Compiler Tests", () => {
     expect(output).toContain("value = 3.14;");
   });
 
-  it("should check if a variable has been previously declared", () => {
+  it("should check is a variable has been previously declared", () => {
     const input = `
-      let a : number;
+      new a : number;
       b = 10;
     `;
     expect(() => compile(input)).toThrowError(
@@ -105,10 +105,10 @@ describe("Compiler Tests", () => {
     );
   });
 
-  it("should check if a variable has been declared and not used", () => {
+  it("should check is a variable has been declared and not used", () => {
     const input = `
-      let a : number;
-      let b : text;
+      new a : number;
+      new b : text;
       a = 10;
     `;
     expect(() => compile(input)).toThrowError(
@@ -116,10 +116,10 @@ describe("Compiler Tests", () => {
     );
   });
 
-  it("should check if a variable is being used without having an initial value", () => {
+  it("should check is a variable is being used without having an initial value", () => {
     const input = `
-      let a : number;
-      let b : number;
+      new a : number;
+      new b : number;
       b = a + 5;
     `;
     expect(() => compile(input)).toThrowError(
