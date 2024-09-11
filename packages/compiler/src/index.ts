@@ -86,14 +86,18 @@ class Visitor extends GrammarVisitor<string> {
       identifiers.forEach((id, index) => {
         const variableName = id.getText();
         const variableType = types[index]?.getText() || types[0].getText();
+        if (this.declaredVariables.has(variableName)) {
+          throw new Error(`Variable '${variableName}' is already declared`);
+        }
         this.declaredVariables.add(variableName);
         this.variableTypes.set(variableName, variableType);
       });
     }
 
-    const identifiersText = identifiers.map((id) => id.getText()).join(", ");
+    const identifiersText = identifiers.map((id) => id.getText());
+
     const typesText = types.map((t) => t.getText()).join(", ");
-    return `let ${identifiersText}: ${typesText === "text" ? "string" : "number"};`;
+    return `let ${identifiersText.join(", ")}: ${typesText === "text" ? "string" : "number"};`;
   };
 
   visitAssignmentStatement = (ctx: AssignmentStatementContext): string => {

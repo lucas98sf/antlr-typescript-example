@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { compile } from ".";
 
 describe("Compiler Tests", () => {
-  it("should handle variables with disferent types", () => {
+  it("should handle variables with diferent types", () => {
     const input = `
       new a, b : text;
       new x : number;
@@ -15,6 +15,17 @@ describe("Compiler Tests", () => {
     expect(output).toContain("let a, b: string;");
     expect(output).toContain("let x: number;");
     expect(output).toContain("console.log(a + b + x);");
+  });
+
+  it("should handle single-line comments", () => {
+    const input = `
+      // This is a comment
+      new a : number;
+      a = 10;
+      write(a);
+    `;
+    const output = compile(input);
+    expect(output).not.toContain("// This is a comment");
   });
 
   it("should handle If...else structure", () => {
@@ -95,6 +106,16 @@ describe("Compiler Tests", () => {
     `;
     const output = compile(input);
     expect(output).toContain("value = 3.14;");
+  });
+
+  it("should check if a variable already has been declared", () => {
+    const input = `
+      new a : number;
+      new a : text;
+    `;
+    expect(() => compile(input)).toThrowError(
+      /Variable 'a' is already declared/
+    );
   });
 
   it("should check is a variable has been previously declared", () => {
