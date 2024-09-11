@@ -29,14 +29,22 @@ function App() {
         marginBottom: "100px",
       }}
     >
-      <textarea
-        value={code}
-        onChange={handleCodeChange}
-        style={{ width: "100%", height: "300px" }}
-      />
-      <SyntaxHighlighter language="typescript" style={darcula}>
-        {compiledCode}
-      </SyntaxHighlighter>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
+      >
+        <textarea
+          value={code}
+          onChange={handleCodeChange}
+          style={{ width: "500px", height: "300px" }}
+        />
+        <SyntaxHighlighter language="typescript" style={darcula}>
+          {compiledCode}
+        </SyntaxHighlighter>
+      </div>
     </div>
   );
 }
