@@ -11,7 +11,7 @@
   },
   "scripts": {
     "generate": "antlr4ng -Dlanguage=TypeScript -o ./src/generated/ -visitor -no-listener -Xexact-output-dir Grammar.g4",
-    "compile": "bun run ./src/index.ts",
+    "compile": "bun run ./src/compile-input.ts",
     "test": "vitest"
   },
   "type": "module",

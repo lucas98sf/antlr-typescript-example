@@ -103,10 +103,10 @@ class Visitor extends GrammarVisitor<string> {
     let typePrompt = "";
     if (variableType === "text") {
       typePrompt = `[TEXT] ${prompt}`;
-      return `${variable} = prompt("${typePrompt}");`;
+      return `${variable} = prompt("${typePrompt}") ?? "";`;
     } else {
       typePrompt = `[NUMBER] ${prompt}`;
-      return `${variable} = parseFloat(prompt("${typePrompt}"));`;
+      return `${variable} = parseFloat(prompt("${typePrompt}") ?? "");`;
     }
   };
 
@@ -204,8 +204,3 @@ export async function compileAndFormat(source: string): Promise<string> {
     return error.message;
   }
 }
-
-// const filePath = path.resolve(__dirname, "../input.in");
-// const source = fs.readFileSync(filePath, "utf-8");
-
-// console.log(await compileAndFormat(source));

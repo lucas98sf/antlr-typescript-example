@@ -1,12 +1,12 @@
-new a, b : text;
+new a : text;
+new b : number;
 write("Hello World");
+
 a = read("enter a string");
-
 write(a);
-b = 2 + 3.14 - 5 * 8.56 / 100;
-write("result: ");
-write(b);
 
+b = 2 + 3.14 - 5 * 8.56 / 100;
+write(b);
 is b > 5 ?
    write("> 5"); 
  : write("< 5");

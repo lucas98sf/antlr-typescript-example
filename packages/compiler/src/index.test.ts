@@ -81,7 +81,9 @@ describe("Compiler Tests", () => {
       write("Hello, " + name);
     `;
     const output = compile(input);
-    expect(output).toContain('name = prompt("[TEXT] Enter your name: ");');
+    expect(output).toContain(
+      'name = prompt("[TEXT] Enter your name: ") ?? "";'
+    );
     expect(output).toContain('console.log("Hello, " + name);');
   });
 
